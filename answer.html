@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cracklee Answer View.">
+    <title>Answer | Cracklee</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    
+
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo" style="margin: -60px 0; display: flex; align-items: center; justify-content: flex-start;">
+            <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                <img src="images/logo.png" alt="Cracklee Logo"
+                    style="height: 170px; display: block; object-fit: contain; transform: scale(1.2); transform-origin: left center;">
+            </a>
+        </div>
+        <div class="nav-center" style="display: flex; gap: 1rem;">
+            <a href="questions.html" class="btn btn-primary btn-lg" style="text-decoration: none;">Daily Questions</a>
+            <a href="answer.html" class="btn btn-secondary btn-lg" style="text-decoration: none;">Answers</a>
+        </div>
+        <div class="nav-right" style="display: flex; gap: 0.75rem; align-items: center;">
+            <a href="https://leetcode.com/" target="_blank" class="icon-toggle" aria-label="LeetCode" title="Go to LeetCode">
+                <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125 5.13 5.527 5.527 0 0 0 2.462 2.372 5.093 5.093 0 0 0 4.144.155 5.23 5.23 0 0 0 2.274-2.01l.016-.023 2.87-3.076a.82.82 0 0 0-.019-1.127.818.818 0 0 0-1.124-.017l-2.872 3.078a3.784 3.784 0 0 1-1.638 1.458 3.518 3.518 0 0 1-2.91.012 3.978 3.978 0 0 1-1.78-1.745 3.868 3.868 0 0 1-.226-3.6 3.786 3.786 0 0 1 .863-1.492l3.854-4.126 5.408-5.789a.12.12 0 0 1 .158-.027.12.12 0 0 1 .059.088.118.118 0 0 1-.035.109l-8.086 8.618a.818.818 0 0 0-.016 1.13.82.82 0 0 0 1.13-.016l8.086-8.619a1.6 1.6 0 0 0 .285-1.722 1.637 1.637 0 0 0-1.428-.909z"/><path d="M21.055 12.002a2.38 2.38 0 0 0-1.206-.24h-4.32a.818.818 0 0 0-.82.818.82.82 0 0 0 .82.819h4.32a.89.89 0 0 1 .494.13.91.91 0 0 1 .31.42.9.9 0 0 1-.212 1.053l-6.86 7.07a1.693 1.693 0 0 1-1.2.49h-3.636a.818.818 0 0 0-.82.82.82.82 0 0 0 .82.818h3.636a3.344 3.344 0 0 0 2.373-.972l6.858-7.072a2.536 2.536 0 0 0 .425-2.946z"/></svg>
+            </a>
+            <button class="icon-toggle" id="themeToggle" aria-label="Toggle Dark/Light Mode">
+                <svg id="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg id="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="padding: 120px 6% 4rem 6%; max-width: 1100px; margin: 0 auto;">
+        
+        <a href="questions.html" class="btn btn-outline" style="margin-bottom: 2rem; display: inline-flex; text-decoration: none;">
+            ← Back to Questions
+        </a>
+        
+        <div class="answer-container" id="answerContainer" style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 4rem; backdrop-filter: blur(20px); display: none;">
+            
+            <!-- Question Title & Difficulty -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+                <h1 id="ansTitle" style="font-family: 'Outfit', sans-serif; font-size: 2.5rem; line-height: 1.2;"></h1>
+                <div id="ansDiff" style="font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 8px; border: 1px solid transparent;"></div>
+            </div>
+            
+            <!-- Description -->
+            <div id="ansDesc" class="problem-description" style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 3rem;">
+            </div>
+            
+            <!-- Solution Approach & Code -->
+            <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; font-family: 'Outfit', sans-serif; color: var(--accent-color);">The Clean Approach</h3>
+            <p id="ansApproach" style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.8; font-size: 1.05rem;"></p>
+            
+            <!-- Code Tabs -->
+            <div class="code-tabs">
+                <button class="tab-btn active" onclick="switchTab('cpp')">C++</button>
+                <button class="tab-btn" onclick="switchTab('java')">Java</button>
+                <button class="tab-btn" onclick="switchTab('python')">Python</button>
+            </div>
+            
+            <div class="code-block" id="code-cpp">
+<pre id="codePreCpp" style="font-family: 'Inter', monospace; color: #cbd5e1; line-height: 1.6; font-size: 0.95rem; margin: 0;"></pre>
+            </div>
+
+            <div class="code-block" id="code-java" style="display: none;">
+<pre id="codePreJava" style="font-family: 'Inter', monospace; color: #cbd5e1; line-height: 1.6; font-size: 0.95rem; margin: 0;"></pre>
+            </div>
+
+            <div class="code-block" id="code-python" style="display: none;">
+<pre id="codePrePy" style="font-family: 'Inter', monospace; color: #cbd5e1; line-height: 1.6; font-size: 0.95rem; margin: 0;"></pre>
+            </div>
+            
+            <!-- Complexities -->
+            <div class="complexity" style="margin-top: 2rem; padding: 1.5rem; background: rgba(245, 176, 39, 0.05); border-left: 4px solid var(--accent-color); border-radius: 0 8px 8px 0;">
+                <p><strong>Time Complexity:</strong> <code id="ansTime" style="font-family: monospace; color: var(--accent-color);"></code></p>
+                <p style="margin-top: 0.75rem;"><strong>Space Complexity:</strong> <code id="ansSpace" style="font-family: monospace; color: var(--accent-color);"></code></p>
+            </div>
+        </div>
+        
+        <div id="notFoundMessage" style="display: none; text-align: center; padding: 4rem; background: var(--glass-bg); border-radius: 16px;">
+            <h2 style="font-size: 2rem; margin-bottom: 1rem; color: #ef4444;">Question Not Found</h2>
+            <p style="color: var(--text-secondary);">The question you are looking for does not exist in data.js.</p>
+        </div>
+
+    </main>
+
+    <!-- Interactive Script -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            const problem = typeof problemsData !== 'undefined' ? problemsData.find(p => p.id === id) : null;
+            
+            if (problem) {
+                document.getElementById('answerContainer').style.display = 'block';
+                document.getElementById('ansTitle').textContent = problem.title;
+                
+                const diffEl = document.getElementById('ansDiff');
+                diffEl.textContent = problem.difficulty;
+                diffEl.style.color = problem.difficulty === 'Easy' ? '#22c55e' : problem.difficulty === 'Medium' ? '#eab308' : '#ef4444';
+                diffEl.style.background = problem.difficulty === 'Easy' ? 'rgba(34, 197, 94, 0.1)' : problem.difficulty === 'Medium' ? 'rgba(234, 179, 8, 0.1)' : 'rgba(239, 68, 68, 0.1)';
+                diffEl.style.borderColor = problem.difficulty === 'Easy' ? 'rgba(34, 197, 94, 0.2)' : problem.difficulty === 'Medium' ? 'rgba(234, 179, 8, 0.2)' : 'rgba(239, 68, 68, 0.2)';
+                
+                document.getElementById('ansDesc').innerHTML = problem.description;
+                document.getElementById('ansApproach').textContent = problem.approach;
+                
+                // Helper to add line numbers to raw code text securely
+                const formatCode = (code) => {
+                    if(!code) return '';
+                    // Escape basic HTML to prevent injection and maintain syntax
+                    const escapeHtml = (unsafe) => unsafe
+                         .replace(/&/g, "&amp;")
+                         .replace(/</g, "&lt;")
+                         .replace(/>/g, "&gt;")
+                         .replace(/"/g, "&quot;")
+                         .replace(/'/g, "&#039;");
+                         
+                    // Quick regex for basic syntax coloring
+                    const colorize = (str) => {
+                        let colored = escapeHtml(str);
+                        colored = colored.replace(/\b(class|public|private|return|for|if|else|bool|string|vector|const|new|yield|any|def|self|boolean|String|char|int)\b/g, '<span style="color: #c678dd;">$1</span>');
+                        return colored;
+                    };
+
+                    return code.split('\\n').map((line, i) => `<span class="line-number">${i+1}</span>${colorize(line)}`).join('\\n');
+                };
+                
+                document.getElementById('codePreCpp').innerHTML = formatCode(problem.cpp);
+                document.getElementById('codePreJava').innerHTML = formatCode(problem.java);
+                document.getElementById('codePrePy').innerHTML = formatCode(problem.python);
+                
+                document.getElementById('ansTime').innerHTML = problem.timeComplexity;
+                document.getElementById('ansSpace').innerHTML = problem.spaceComplexity;
+            } else {
+                document.getElementById('notFoundMessage').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

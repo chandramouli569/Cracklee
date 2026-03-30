@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Cracklee</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        .admin-form { display: flex; flex-direction: column; gap: 1.5rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        label { font-family: 'Inter', sans-serif; font-weight: 500; color: var(--text-secondary); }
+        input, select, textarea { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--glass-border); 
+            color: var(--text-primary); 
+            padding: 1rem; 
+            border-radius: 8px; 
+            font-family: 'Inter', sans-serif; 
+            font-size: 1rem; 
+        }
+        [data-theme="light"] input, [data-theme="light"] select, [data-theme="light"] textarea {
+            background: rgba(255,255,255,0.5);
+            color: #0f172a;
+        }
+        textarea { min-height: 150px; resize: vertical; font-family: monospace; }
+        .row { display: flex; gap: 1rem; width: 100%; }
+        .col { flex: 1; }
+        @media (max-width: 768px) { .row { flex-direction: column; } }
+    </style>
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    
+    <!-- Admin Navigation -->
+    <nav class="navbar">
+        <div class="logo" style="margin: -60px 0;">
+            <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                <img src="images/logo.png" alt="Cracklee Logo" style="height: 170px; transform: scale(1.2); transform-origin: left center;">
+            </a>
+        </div>
+        <div class="nav-right" style="display: flex; gap: 0.75rem; align-items: center;">
+            <a href="https://leetcode.com/" target="_blank" class="icon-toggle" aria-label="LeetCode" title="Go to LeetCode">
+                <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125 5.13 5.527 5.527 0 0 0 2.462 2.372 5.093 5.093 0 0 0 4.144.155 5.23 5.23 0 0 0 2.274-2.01l.016-.023 2.87-3.076a.82.82 0 0 0-.019-1.127.818.818 0 0 0-1.124-.017l-2.872 3.078a3.784 3.784 0 0 1-1.638 1.458 3.518 3.518 0 0 1-2.91.012 3.978 3.978 0 0 1-1.78-1.745 3.868 3.868 0 0 1-.226-3.6 3.786 3.786 0 0 1 .863-1.492l3.854-4.126 5.408-5.789a.12.12 0 0 1 .158-.027.12.12 0 0 1 .059.088.118.118 0 0 1-.035.109l-8.086 8.618a.818.818 0 0 0-.016 1.13.82.82 0 0 0 1.13-.016l8.086-8.619a1.6 1.6 0 0 0 .285-1.722 1.637 1.637 0 0 0-1.428-.909z"/><path d="M21.055 12.002a2.38 2.38 0 0 0-1.206-.24h-4.32a.818.818 0 0 0-.82.818.82.82 0 0 0 .82.819h4.32a.89.89 0 0 1 .494.13.91.91 0 0 1 .31.42.9.9 0 0 1-.212 1.053l-6.86 7.07a1.693 1.693 0 0 1-1.2.49h-3.636a.818.818 0 0 0-.82.82.82.82 0 0 0 .82.818h3.636a3.344 3.344 0 0 0 2.373-.972l6.858-7.072a2.536 2.536 0 0 0 .425-2.946z"/></svg>
+            </a>
+            <span style="font-family: 'Outfit', sans-serif; font-weight: bold; color: var(--accent-color); margin-right: 1.5rem; letter-spacing: 2px;">AUTHOR HUB</span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="padding: 120px 6% 4rem 6%; max-width: 900px; margin: 0 auto;">
+        <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 3rem; backdrop-filter: blur(20px);">
+            <h1 style="font-family: 'Outfit', sans-serif; font-size: 2.5rem; margin-bottom: 0.5rem;">Create / Edit Question</h1>
+            <p style="color: var(--text-secondary); margin-bottom: 2.5rem;">Fill out the details. Save to download the updated <code>data.js</code> file, then drag it into your folder to update the entire site.</p>
+            
+            <form id="adminForm" class="admin-form">
+                <div class="row">
+                    <div class="form-group col" style="flex: 0.3;">
+                        <label>ID (e.g., 2839)</label>
+                        <input type="text" id="pId" required>
+                    </div>
+                    <div class="form-group col">
+                        <label>Full Title (e.g., 2839. Check If Strings...)</label>
+                        <input type="text" id="pTitle" required>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="form-group col">
+                        <label>Difficulty</label>
+                        <select id="pDiff" required>
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option>
+                        </select>
+                    </div>
+                    <div class="form-group col">
+                        <label>Tags (Comma separated)</label>
+                        <input type="text" id="pTags" placeholder="e.g. Array, Hash Table" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Question Description (HTML allowed)</label>
+                    <textarea id="pDesc" placeholder="<p>Given an array...</p>" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Clean Approach Explanation</label>
+                    <textarea id="pAppr" placeholder="We use a hash map to..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>C++ Code</label>
+                    <textarea id="pCpp" placeholder="class Solution {...}"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Java Code</label>
+                    <textarea id="pJava" placeholder="class Solution {...}"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Python Code</label>
+                    <textarea id="pPy" placeholder="class Solution:..."></textarea>
+                </div>
+                
+                <div class="row">
+                    <div class="form-group col">
+                        <label>Time Complexity</label>
+                        <input type="text" id="pTime" placeholder="O(n) - We traverse..." required>
+                    </div>
+                    <div class="form-group col">
+                        <label>Space Complexity</label>
+                        <input type="text" id="pSpace" placeholder="O(n) - We store..." required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 2rem; width: 100%;">Save & Download data.js</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="data.js"></script>
+    <script>
+        document.getElementById('adminForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newProblem = {
+                id: document.getElementById('pId').value.trim(),
+                title: document.getElementById('pTitle').value.trim(),
+                difficulty: document.getElementById('pDiff').value,
+                tags: document.getElementById('pTags').value.trim(),
+                description: document.getElementById('pDesc').value.trim(),
+                approach: document.getElementById('pAppr').value.trim(),
+                cpp: document.getElementById('pCpp').value.trim(),
+                java: document.getElementById('pJava').value.trim(),
+                python: document.getElementById('pPy').value.trim(),
+                timeComplexity: document.getElementById('pTime').value.trim(),
+                spaceComplexity: document.getElementById('pSpace').value.trim(),
+                date: '' // Set automatically below
+            };
+            
+            // Current data from data.js
+            const existingData = typeof problemsData !== 'undefined' ? problemsData : [];
+            
+            // Generate a formatted current date (e.g., "Mar 30, 2026")
+            const today = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            
+            // Check if ID already exists, if so update it, else push
+            const existingIdx = existingData.findIndex(p => p.id === newProblem.id);
+            if(existingIdx >= 0) {
+                // Keep the original date if editing an existing question
+                newProblem.date = existingData[existingIdx].date || today;
+                existingData[existingIdx] = newProblem;
+            } else {
+                // Add today's date for brand new questions
+                newProblem.date = today;
+                existingData.push(newProblem);
+            }
+            
+            // Generate the javascript file string (with readable formatting)
+            const fileContent = 'const problemsData = ' + JSON.stringify(existingData, null, 4) + ';';
+            
+            // Trigger Download
+            const blob = new Blob([fileContent], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.js';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('Successfully generated! Check your downloads folder for data.js.\n\nDrag and drop it into your project folder to replace the old one, and your site is instantly updated!');
+            
+            // Reset form optionally
+            // document.getElementById('adminForm').reset();
+        });
+    </script>
+</body>
+</html>
