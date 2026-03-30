@@ -720,3 +720,39 @@ body {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
 }
+
+/* Comprehensive Mobile / Android Scaling Fixes */
+@media (max-width: 768px) {
+    /* Fix Oversized Navbar Elements */
+    .navbar { padding: 1rem 5%; }
+    .logo { margin: 0 !important; padding: 0 !important; }
+    .logo img { 
+        height: 50px !important; 
+        transform: none !important;
+    }
+    
+    /* Fix Hero Typography & Button Wraps */
+    .hero { padding-top: 6rem; }
+    .hero-title { font-size: 2.5rem !important; }
+    .hero-subtitle { font-size: 1rem; margin-bottom: 2rem; }
+    
+    /* Keep Glass Card from overflowing viewport horizontally */
+    .glass-card { padding: 1.5rem; margin: 0 1rem; width: auto; transform: none !important; }
+    .glass-card img[alt="Cracklee"] { height: 90px !important; }
+    
+    /* Space out content sections naturally on tall screens */
+    #explore { padding: 4rem 1rem !important; gap: 3rem !important; }
+    
+    /* News grid forced to single column perfectly */
+    .news-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+    .news-card { padding: 1.5rem !important; }
+    
+    /* Prevent the News Ticker from squishing */
+    .news-ticker-label { padding: 0.6rem 1rem; font-size: 0.75rem; }
+    .ticker-content { gap: 1.5rem; }
+    
+    /* Stack footer beautifully in the center */
+    footer { padding: 2rem 1.5rem !important; }
+    footer > div { flex-direction: column !important; justify-content: center; gap: 1.5rem !important; text-align: center; }
+    footer > div > div { align-items: center !important; margin: 0 !important; flex-wrap: wrap; justify-content: center; }
+}
