@@ -43,6 +43,8 @@
     <main style="padding: 120px 6% 4rem 6%; max-width: 1250px; margin: 0 auto; min-height: 100vh;">
         <h1 style="font-family: 'Outfit', sans-serif; font-size: 3rem; margin-bottom: 2rem;">LeetCode Daily Questions</h1>
         
+        <input type="text" id="qSearch" class="questions-search" placeholder="Search by ID, Title, or Tag...">
+        
         <div class="questions-list" id="questionsList" style="display: flex; flex-direction: column; gap: 1rem;">
             <!-- Items injected via JS -->
         </div>
@@ -54,16 +56,53 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const list = document.getElementById('questionsList');
-            if (list && typeof problemsData !== 'undefined') {
-                list.innerHTML = problemsData.map(p => `
+            const searchInput = document.getElementById('qSearch');
+
+            // Get initial query from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialQuery = (urlParams.get('q') || '').toLowerCase();
+            if (searchInput) {
+                searchInput.value = initialQuery;
+            }
+
+            const renderData = (filterText) => {
+                if (!list || typeof problemsData === 'undefined') return;
+                
+                const filtered = problemsData.filter(p => 
+                    p.title.toLowerCase().includes(filterText) ||
+                    p.id.toLowerCase().includes(filterText) ||
+                    (p.tags && p.tags.toLowerCase().includes(filterText))
+                );
+
+                if (filtered.length === 0) {
+                    list.innerHTML = `<p style="color: var(--text-secondary); text-align: center; padding: 2rem;">No questions match your search parameters.</p>`;
+                    return;
+                }
+
+                list.innerHTML = filtered.map(p => {
+                    const isSolved = localStorage.getItem('solved_' + p.id) === 'true';
+                    const displayTitle = p.title.startsWith(p.id) ? p.title : p.id + '. ' + p.title;
+                    const solvedBadge = isSolved ? `<span class="solved-badge">Done ✅</span>` : '';
+
+                    return `
                     <a href="answer.html?id=${p.id}" class="question-item" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; text-decoration: none; color: var(--text-primary); transition: all 0.3s ease;">
                         <div>
-                            <h2 style="font-size: 1.25rem; font-weight: 600; font-family: 'Inter', sans-serif;">${p.title.startsWith(p.id) ? p.title : p.id + '. ' + p.title}</h2>
+                            <h2 style="font-size: 1.25rem; font-weight: 600; font-family: 'Inter', sans-serif; display: flex; align-items: center;">${displayTitle}${solvedBadge}</h2>
                             <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.5rem;">📅 ${p.date || 'Recent'} &nbsp;•&nbsp; ${p.tags}</p>
                         </div>
                         <div style="color: ${p.difficulty === 'Easy' ? '#22c55e' : p.difficulty === 'Medium' ? '#eab308' : '#ef4444'}; font-weight: 500; font-size: 1rem;">${p.difficulty}</div>
                     </a>
-                `).join('');
+                    `;
+                }).join('');
+            };
+
+            // Initial render
+            renderData(initialQuery);
+
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    renderData(e.target.value.toLowerCase());
+                });
             }
         });
     </script>

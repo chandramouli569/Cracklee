@@ -53,7 +53,10 @@
             <!-- Question Title & Difficulty -->
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
                 <h1 id="ansTitle" style="font-family: 'Outfit', sans-serif; font-size: 2.5rem; line-height: 1.2;"></h1>
-                <div id="ansDiff" style="font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 8px; border: 1px solid transparent;"></div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="btn btn-success" id="btnSolve" style="display: none; padding: 0.4rem 1rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">Mark as Solved ✅</button>
+                    <div id="ansDiff" style="font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 8px; border: 1px solid transparent;"></div>
+                </div>
             </div>
             
             <!-- Description -->
@@ -72,14 +75,17 @@
             </div>
             
             <div class="code-block" id="code-cpp">
+                <button class="copy-btn" onclick="copyCode('cpp')">Copy Code</button>
 <pre id="codePreCpp" style="font-family: 'Inter', monospace; color: #cbd5e1; line-height: 1.6; font-size: 0.95rem; margin: 0;"></pre>
             </div>
 
             <div class="code-block" id="code-java" style="display: none;">
+                <button class="copy-btn" onclick="copyCode('java')">Copy Code</button>
 <pre id="codePreJava" style="font-family: 'Inter', monospace; color: #cbd5e1; line-height: 1.6; font-size: 0.95rem; margin: 0;"></pre>
             </div>
 
             <div class="code-block" id="code-python" style="display: none;">
+                <button class="copy-btn" onclick="copyCode('python')">Copy Code</button>
 <pre id="codePrePy" style="font-family: 'Inter', monospace; color: #cbd5e1; line-height: 1.6; font-size: 0.95rem; margin: 0;"></pre>
             </div>
             
@@ -146,10 +152,52 @@
                 
                 document.getElementById('ansTime').innerHTML = problem.timeComplexity;
                 document.getElementById('ansSpace').innerHTML = problem.spaceComplexity;
+                
+                // Track current problem for copy functionality
+                window.currentProblem = problem;
+                
+                // Mark as Solved logic
+                const btnSolve = document.getElementById('btnSolve');
+                btnSolve.style.display = 'inline-block';
+                
+                const isSolved = localStorage.getItem('solved_' + problem.id) === 'true';
+                if (isSolved) {
+                    btnSolve.innerHTML = 'Completed ✅';
+                    btnSolve.disabled = true;
+                    btnSolve.style.opacity = '0.5';
+                    btnSolve.style.cursor = 'default';
+                }
+                
+                btnSolve.addEventListener('click', () => {
+                    localStorage.setItem('solved_' + problem.id, 'true');
+                    btnSolve.innerHTML = 'Completed ✅';
+                    btnSolve.disabled = true;
+                    btnSolve.style.opacity = '0.5';
+                    btnSolve.style.cursor = 'default';
+                });
             } else {
                 document.getElementById('notFoundMessage').style.display = 'block';
             }
         });
+
+        // Global Copy Function
+        function copyCode(lang) {
+            const problem = window.currentProblem;
+            if (!problem) return;
+            
+            const codeToCopy = problem[lang];
+            navigator.clipboard.writeText(codeToCopy).then(() => {
+                const btn = document.querySelector(`#code-${lang} .copy-btn`);
+                if (btn) {
+                    btn.innerHTML = 'Copied! ✅';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btn.innerHTML = 'Copy Code';
+                        btn.classList.remove('copied');
+                    }, 2000);
+                }
+            });
+        }
     </script>
 </body>
 </html>

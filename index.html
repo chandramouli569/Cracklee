@@ -266,9 +266,7 @@
                         setTimeout(() => searchInput.focus(), 150); // wait for anim
                     } else {
                         if (searchInput.value.trim() !== "") {
-                            // Optionally redirect to search, e.g. window.location.href = 'questions.html?q=' + ...
-                            alert("Search functionality triggered for: " + searchInput.value);
-                            searchContainer.classList.remove('active');
+                            window.location.href = 'questions.html?q=' + encodeURIComponent(searchInput.value.trim());
                             searchInput.value = "";
                         } else {
                             searchContainer.classList.remove('active');
@@ -279,8 +277,7 @@
                 // Also trigger search on Enter key
                 searchInput.addEventListener('keypress', (e) => {
                     if (e.key === 'Enter' && searchInput.value.trim() !== "") {
-                        alert("Search functionality triggered for: " + searchInput.value);
-                        searchContainer.classList.remove('active');
+                        window.location.href = 'questions.html?q=' + encodeURIComponent(searchInput.value.trim());
                         searchInput.value = "";
                     }
                 });
