@@ -108,7 +108,7 @@
             
             if (problem) {
                 document.getElementById('answerContainer').style.display = 'block';
-                document.getElementById('ansTitle').textContent = problem.title;
+                document.getElementById('ansTitle').textContent = problem.title.startsWith(problem.id) ? problem.title : problem.id + '. ' + problem.title;
                 
                 const diffEl = document.getElementById('ansDiff');
                 diffEl.textContent = problem.difficulty;
