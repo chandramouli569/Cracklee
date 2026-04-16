@@ -1,4 +1,4 @@
-# Cracklee – LeetCode Daily Solutions Platform
+# Cracklee – LeetCode Daily Solutions Answers Platform
 
 Cracklee is a web-based platform designed to organize and display daily LeetCode problem solutions in a structured and accessible format. It helps users quickly view problems and their corresponding answers in one place.
 
@@ -34,6 +34,7 @@ cracklee/
 │── style.css
 │── script.js
 │── screenshot.png
+
 
 👤 Author
 Chandra Mouli 
