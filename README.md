@@ -29,12 +29,13 @@ Cracklee is a web-based platform designed to organize and display daily LeetCode
 ---
 
 ## 📂 Project Structure
+
 cracklee/
 │── index.html
 │── style.css
 │── script.js
 │── screenshot.png
-
+```
 
 👤 Author
 Chandra Mouli 
